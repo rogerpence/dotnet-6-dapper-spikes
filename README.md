@@ -11,3 +11,9 @@
 * **StronglyTypedResultWithWhere** -- Fetch a list of strongly-typed objects with a `where` clause.
 
     This is the `StronglyTypedResult` method with a `where` clause added. 
+
+* **StronglyTypedResultAsync** -- Fetch a list of strongly-typed objects asynchronously.
+
+    This is the `StronglyTypedResult` method recast as an async operation. Note these differences: 
+     * This version uses the "unbraced" version of C#'s `using` statement. At the end of the `using` scope (the end of the method is this case) the object is disposed.
+     * In `StronglyTypedResult`, Dapper's `Query<T>` method requires the use of `.ToList()` to return an `IEnumerable` list. However, Dapper's `QueryAsync<t>` doesn't require (nor does it allow) `.ToList`. Why is that!? 

@@ -50,20 +50,25 @@ public class Spikes
 
         using (var connection = new SqlConnection(CONNECTION_STRING))
         {
-            //List<artist> artists = connection.Query<artist>(sql, 
-            //                                                new {PrefixWithThe = true}).ToList();
-
             IEnumerable<Artist> artists = connection.Query<Artist>(sql,
                                                             new { PrefixWithThe = true }).ToList();
-
             return artists;
-            //foreach (var a in artists)
-            //{
-            //    Console.WriteLine($"Name: {a.Name} prefixWithThe: {a.PrefixWithThe}");
-            //}
         }
     }
 
+    public async Task StronglyTypedResultAsync()
+    {
+        string sql = "SELECT * FROM Artist";
+
+        await using var connection = new SqlConnection(CONNECTION_STRING);
+        
+        IEnumerable<Artist> artists = await connection.QueryAsync<Artist>(sql);
+
+        foreach (var a in artists)
+        {
+            Console.WriteLine($"Name: {a.Name} prefixWithThe: {a.PrefixWithThe}");
+        }
+    }
 
 }
 
